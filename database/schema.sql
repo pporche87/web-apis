@@ -27,4 +27,5 @@ CREATE TABLE songs (
   track_no INTEGER
 );
 
+DROP TABLE IF EXISTS playlists;
 CREATE TABLE playlists ();
