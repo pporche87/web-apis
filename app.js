@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
+
 const artistRoutes = require('./routes/artistRoutes')
+const albumRoutes = require('./routes/albumRoutes')
 
 const jsonParser = require('body-parser').json
 const logger = require('morgan')
@@ -10,6 +12,7 @@ app.use(logger('dev'))
 app.use(jsonParser())
 
 app.use('/artists',artistRoutes)
+app.use('/albums',albumRoutes)
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
