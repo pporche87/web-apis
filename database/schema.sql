@@ -23,9 +23,15 @@ CREATE TABLE songs (
   id SERIAL PRIMARY KEY,
   title TEXT,
   album_id INTEGER,
+	artist_id INTEGER,
   length INTEGER,
   track_no INTEGER
 );
 
 DROP TABLE IF EXISTS playlists;
-CREATE TABLE playlists ();
+CREATE TABLE playlists (
+	id SERIAL PRIMARY KEY,
+	title TEXT,
+	song TEXT,
+	songs TEXT
+);

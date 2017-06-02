@@ -1,85 +1,77 @@
 const express = require('express')
 const router = express.Router()
 
-const pgp = require('pg-promise')(/*options*/)
-const db = pgp('postgres://localhost:5432/musicdb')
+const db = require('../queries/artistQueries')
 
-// get all artists
+// // get all artists
 router.get('/', (req, res) => {
-	db.query('SELECT name FROM artists')
+	db.artistsAll()
 	  .then( (data) => {
-	    console.log('DATA:', data)
+	    res.send(data)
 	  })
 	  .catch( (error) => {
-	    console.log('ERROR:', error)
+	    res.send(error)
 	  })
 })
 
 // get artist by id
 router.get('/:id', (req, res) => {
-	db.query('SELECT name FROM artists WHERE id = 1')
+	const id = req.params.id
+	db.artistById(id)
 	  .then( (data) => {
-	    console.log('DATA:', data)
+	    res.send(data)
 	  })
-	  .catch( (error) => {
-	    console.log('ERROR:', error)
+		.catch( (error) => {
+	    res.send(error)
 	  })
 })
 
 // get artist by name
 router.get('/name/:name', (req, res) => {
-	db.query("SELECT name FROM artists WHERE name = 'M.I.A.'")
+	const name = req.params.name
+	db.artistByName(name)
 	  .then( (data) => {
-	    console.log('DATA:', data)
+	    res.send(data)
 	  })
 	  .catch( (error) => {
-	    console.log('ERROR:', error)
+	    res.send(error)
 	  })
 })
 
-// add a new artist
-router.post('/new/:name', (req, res) => {
-	db.query(
-		"INSERT INTO artists (name, genre) VALUES ('John Mayer', 'Acoustic Rock');"
-	)
+// create a new artist
+router.post('/new/:artist/:genre', (req, res) => {
+	const artist = req.params.artist
+	const genre = req.params.genre
+	db.artistCreateNew(artist, genre)
 	  .then( (data) => {
-			db.query("SELECT name FROM artists WHERE name = 'John Mayer'")
-			  .then( (data) => {
-			    console.log('Inserted: ', data)
-			  })
-			  .catch( (error) => {
-			    console.log('ERROR:', error)
-			  })
+	    res.send(data)
 	  })
 	  .catch( (error) => {
-	    console.log('ERROR:', error)
+	    res.send(data)
 	  })
 })
 
-// edit an artists name
-router.put('/:id/edit', (req, res) => {
-	db.query("UPDATE artists SET name = 'Jason Mraz' WHERE name = 'John Mayer'")
+// // edit an artists name
+router.put('/edit/:artist/:newArtist', (req, res) => {
+	const artist = req.params.artist
+	const newArtist = req.params.newArtist
+	db.artistEdit(artist, newArtist)
 	  .then( (data) => {
-			db.query("SELECT name FROM artists WHERE name = 'Jason Mraz'")
-			  .then( (data) => {
-			    console.log('Edited Artist To: ', data)
-			  })
-			  .catch( (error) => {
-			    console.log('ERROR:', error)
-			  })
+	    res.send(data)
 	  })
 	  .catch( (error) => {
-	    console.log('ERROR:', error)
+	    res.send(data)
 	  })
 })
 
-router.delete('/:id/delete', (req, res) => {
-	db.query("DELETE FROM artists WHERE name = 'Jason Mraz'")
+router.delete('/delete/:artist', (req, res) => {
+	const artist = req.params.artist
+	db.artistDelete(artist)
 	  .then( (data) => {
-			console.log('Artist Deleted From Database');
+			res.send(data)
 	  })
 	  .catch( (error) => {
-	    console.log('ERROR:', error)
+	    res.send(data)
 	  })
 })
 
