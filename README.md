@@ -91,14 +91,42 @@ Run the following script in the command line to start the server
 // get song by album
 // GET \ /albums/name/:album_id
 
-// create a new album
-// POST \ /new/:album/:year
+// get song by artist
+// GET \ /new/:album/:artist_id
 
-// edit an albums name
-// PUT \ /edit/:album/:newAlbum
+// create a new song
+// POST \ /new/:title/:length/:track_no
 
-// delete album
-// DELETE \ /delete/:album
+// edit a songs name
+// PUT \ /edit/:song/:newSong
+
+// delete song
+// DELETE \ /delete/:song
+```
+
+###### Playlists
+
+```javascript
+// get all playlists
+// GET \ /playlists
+
+// get a playlist by id
+// GET \ /playlists/:id
+
+// get all songs in a playlist
+// GET \ /songs/:title
+
+// add a song to a playlist
+// PATCH \ /new/song/:playlist/:song
+
+// create a new playlist
+// POST \ /new/:title/:songs
+
+// edit a playlist
+// PUT \ /edit/:playlist/:newPlaylist
+
+// delete playlist
+// DELETE \ /delete/:playlist 
 ```
 
 # Description
