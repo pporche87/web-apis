@@ -1,8 +1,3 @@
-DROP DATABASE IF EXISTS musicdb;
-CREATE DATABASE musicdb;
-
-\c musicdb
-
 DROP TABLE IF EXISTS artists;
 CREATE TABLE artists (
 id  SERIAL PRIMARY KEY,
