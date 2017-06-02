@@ -31,6 +31,76 @@ Run the following script in the command line to start the server
 
 `$ npm run start`
 
+#### Heroku Website Link and API
+
+[https://patrick-porche-web-apis.herokuapp.com/](https://patrick-porche-web-apis.herokuapp.com/)
+
+##### Routes Definitions
+
+###### Artists
+
+```javascript
+// get all artists
+// GET \ /artists
+
+// get artist by id
+// GET \ /artists/:id
+
+// get artists by name
+// GET \ /artists/name/:name
+
+// create a new artist
+// POST \ /new/:artist/:genre
+
+// edit an artists name
+// PUT \ /edit/:artist/:newArtist
+
+// delete and artist
+// DELETE \ /delete/:artist
+```
+###### Albums
+
+```javascript
+// get all albums
+// GET \ /albums
+
+// get albums by id
+// GET \ /albums/:id
+
+// get albums by name
+// GET \ /albums/name/:name
+
+// create a new album
+// POST \ /new/:album/:year
+
+// edit an albums name
+// PUT \ /edit/:album/:newAlbum
+
+// delete album
+// DELETE \ /delete/:album
+```
+###### Songs
+
+```javascript
+// get all songs
+// GET \ /songs
+
+// get song by id
+// GET \ /songs/:id
+
+// get song by album
+// GET \ /albums/name/:album_id
+
+// create a new album
+// POST \ /new/:album/:year
+
+// edit an albums name
+// PUT \ /edit/:album/:newAlbum
+
+// delete album
+// DELETE \ /delete/:album
+```
+
 # Description
 
 Build a web API for the music player database that you started working on in Init 4: Relational Databases.
