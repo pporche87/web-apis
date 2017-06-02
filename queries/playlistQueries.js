@@ -1,5 +1,4 @@
-const pgp = require('pg-promise')(/*options*/)
-const db = pgp('postgres://localhost:5432/musicdb')
+const db = require('../database')
 
 const playlistsAll = () => {
 	return db.any('Select title FROM playlists')

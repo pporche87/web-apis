@@ -51,7 +51,7 @@ router.post('/new/:artist/:genre', (req, res) => {
 	  })
 })
 
-// // edit an artists name
+// edit an artists name
 router.put('/edit/:artist/:newArtist', (req, res) => {
 	const artist = req.params.artist
 	const newArtist = req.params.newArtist
@@ -64,6 +64,7 @@ router.put('/edit/:artist/:newArtist', (req, res) => {
 	  })
 })
 
+// delete an artist 
 router.delete('/delete/:artist', (req, res) => {
 	const artist = req.params.artist
 	db.artistDelete(artist)
