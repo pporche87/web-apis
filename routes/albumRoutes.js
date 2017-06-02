@@ -1,86 +1,78 @@
 const express = require('express')
 const router = express.Router()
 
-const pgp = require('pg-promise')(/*options*/)
-const db = pgp('postgres://localhost:5432/musicdb')
+const db = require('../queries/albumQueries')
 
 // get all albums
 router.get('/', (req, res) => {
-	db.query('SELECT title FROM albums')
-		.then( (data) => {
-			console.log('DATA:', data)
-		})
-		.catch( (error) => {
-			console.log('ERROR', error)
-		})
+	db.albumsAll()
+	  .then( (data) => {
+	    res.send(data)
+	  })
+	  .catch( (error) => {
+	    res.send(error)
+	  })
 })
 
-// get an album by id
+// get album by id
 router.get('/:id', (req, res) => {
-	db.query('SELECT title FROM albums WHERE id = 1')
-		.then( (data) => {
-			console.log('DATA:', data)
-		})
-		.catch( (error) => {
-			console.log('ERROR', error)
-		})
-})
-
-// get an album by title
-router.get('/title/:title', (req, res) => {
-	db.query("SELECT title FROM albums WHERE title = 'Kala'")
-		.then( (data) => {
-			console.log('DATA', data)
-		})
-		.catch( (error) => {
-			console.log('ERROR', error)
-		})
-})
-
-// add a new album
-router.post('/new/:album', (req, res) => {
-		db.query(
-			"INSERT INTO albums (artist_id, title, year) VALUES (8, 'Continuum', 2006);"
-		)
-			.then( (data) => {
-				db.query("SELECT title FROM albums WHERE title = 'Continuum'")
-					.then( (data) => {
-						console.log('INSERTED:', data)
-					})
-					.catch( (error) => {
-						console.log('ERROR:', error)
-					})
-			})
-			.catch( (error) => {
-				console.log('ERROR:', error)
-			})
-})
-
-// edit an album
-router.put('/:id/edit', (req, res) => {
-	db.query("UPDATE albums SET title = 'Continuum Live' WHERE title = 'Continuum'")
+	const id = req.params.id
+	db.albumById(id)
 	  .then( (data) => {
-			db.query("SELECT title FROM albums WHERE title = 'Continuum Live'")
-			  .then( (data) => {
-			    console.log('Edited Album To: ', data)
-			  })
-			  .catch( (error) => {
-			    console.log('ERROR:', error)
-			  })
+	    res.send(data)
+	  })
+		.catch( (error) => {
+	    res.send(error)
+	  })
+})
+
+// get album by name
+router.get('/name/:name', (req, res) => {
+	const name = req.params.name
+	db.albumByName(name)
+	  .then( (data) => {
+			res.send(data)
 	  })
 	  .catch( (error) => {
-	    console.log('ERROR:', error)
+	    res.send(error)
 	  })
 })
 
-// delete an album
-router.delete('/:id/delete', (req, res) => {
-	db.query("DELETE FROM albums WHERE title = 'Continuum Live'")
+// create a new album
+router.post('/new/:album/:year', (req, res) => {
+	const album = req.params.album
+	const year = req.params.year
+	db.albumCreateNew(album, year)
 	  .then( (data) => {
-			console.log('Artist Deleted From Database');
+	    res.send(data)
 	  })
 	  .catch( (error) => {
-	    console.log('ERROR:', error)
+	    res.send(error)
+	  })
+})
+
+// // edit an albums name
+router.put('/edit/:album/:newAlbum', (req, res) => {
+	const album = req.params.album
+	const newAlbum = req.params.newAlbum
+	db.albumEdit(album, newAlbum)
+	  .then( (data) => {
+	    res.send(data)
+	  })
+	  .catch( (error) => {
+	    res.send(error)
+	  })
+})
+
+// delete album
+router.delete('/delete/:album', (req, res) => {
+	const album = req.params.album
+	db.albumDelete(album)
+	  .then( (data) => {
+			res.send('Album Deleted')
+	  })
+	  .catch( (error) => {
+	    res.send(error)
 	  })
 })
 
