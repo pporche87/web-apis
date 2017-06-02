@@ -1,5 +1,3 @@
-\c musicdb
-
 INSERT INTO artists (name, genre) VALUES
 ('DAngelo', 'Neo-Soul'),
 ('Horse Feathers', 'Folk'),
